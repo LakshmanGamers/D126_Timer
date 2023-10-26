@@ -83,14 +83,15 @@ val list = remember {
     }
     val context = LocalContext.current
     val activity = context as Activity
-
+    val context1 = LocalContext.current
+    val activity1 = context1 as Activity
 
     Column(modifier = Modifier.fillMaxSize() , horizontalAlignment = Alignment.CenterHorizontally ) {
         Spacer(modifier = Modifier.height(10.dp))
         var inputval = remember { mutableStateOf(TextFieldValue()) }
 Row() {
     TextField(value = inputval.value, onValueChange = { inputval.value = it } ,  modifier = Modifier.weight(0.8f),
-        placeholder = { Text(text = "Enter Role Player Name") },
+        placeholder = { Text(text = "Enter RoleName(Name of Role Player)") },
         keyboardOptions = KeyboardOptions(
             capitalization = KeyboardCapitalization.None,
             autoCorrect = true, keyboardType = KeyboardType.Text, imeAction = ImeAction.Done
@@ -102,7 +103,10 @@ Row() {
         maxLines = 1,
         singleLine = true
     )
-    Button(onClick = { list.add(inputval.value.text);
+    Button(onClick = {
+
+        if(inputval.value.text.indexOf("(") != -1  && inputval.value.text.indexOf(")") != -1){
+        list.add(inputval.value.text);
 
         stop.add(false);
         mm.add(0);
@@ -111,6 +115,13 @@ Row() {
             start.add(false);
             time.add(0);
         }
+        }
+        else{
+
+           Toast.makeText(context1, "Invalid Naming Convention", Toast.LENGTH_LONG).show()
+        }
+
+
                      },modifier = Modifier
         .weight(0.2f)
         .height(55.dp)
@@ -245,7 +256,12 @@ Row() {
             var str:String  = ""
 
                 for (i in 0..n) {
-                    str += list[i] + "," + (time[i] % 3600) / 60 + ":" + time[i] % 60 +"\n"
+                    if(i==0)
+                        str += "Name of the Role" + "," + "Name of Role Player" + "," + "TIme(mm:ss)" +"\n"
+
+                    var str1 = list[i].subSequence(0, list[i].indexOf('('))
+                    var str2 = list[i].subSequence( list[i].indexOf('(')+1, list[i].indexOf(')'))
+                    str += "$str1 , $str2" + "," + (time[i] % 3600) / 60 + ":" + time[i] % 60 +"\n"
                 }
                 writeTextData(file, str, context)
 
@@ -266,7 +282,7 @@ Row() {
 //
 //    Column(modifier = Modifier.fillMaxSize()) {
 //        Card(
-//            backgroundColor = Color.White, shape = RoundedCornerShape(20.dp), modifier = Modifier
+//            backgroundColor = Color.Whit`e, shape = RoundedCornerShape(20.dp), modifier = Modifier
 //                .fillMaxWidth()
 //                .height(100.dp)
 //                .width(200.dp)
@@ -397,134 +413,8 @@ Row() {
 //        }
 //    }
 /*
-    LaunchedEffect(key1 = start[0], key2 = time[0]) {
-        if (start[0]) {
-            delay(1000L)
-            time[0] += 1
 
-        }
-    }
-    LaunchedEffect(key1 = start[1], key2 = time[1]) {
-        if (start[1]) {
-            delay(1000L)
-            time[1] += 1
-        }
-    }
-    LaunchedEffect(key1 = start[2], key2 = time[2]) {
-        if (start[2]) {
-            delay(1000L)
-            time[2] += 1
-        }
-    }
-    LaunchedEffect(key1 = start[3], key2 = time[3]) {
-        if (start[3]) {
-            delay(1000L)
-            time[3] += 1
-        }
-    }
-    LaunchedEffect(key1 = start[4], key2 = time[4]) {
-        if (start[4]) {
-            delay(1000L)
-            time[4] += 1
-        }
-    }
-    LaunchedEffect(key1 = start[5], key2 = time[5]) {
-        if (start[5]) {
-            delay(1000L)
-            time[5] += 1
-        }
-    }
-    LaunchedEffect(key1 = start[6], key2 = time[6]) {
-        if (start[6]) {
-            delay(1000L)
-            time[6] += 1
-        }
-    }
-    LaunchedEffect(key1 = start[7], key2 = time[7]) {
-        if (start[7]) {
-            delay(1000L)
-            time[7] += 1
-        }
-    }
 
-    LaunchedEffect(key1 = start[8], key2 = time[8]) {
-        if (start[8]) {
-            delay(1000L)
-            time[8] += 1
-        }
-    }
-    LaunchedEffect(key1 = start[9], key2 = time[9]) {
-        if (start[9]) {
-            delay(1000L)
-            time[9] += 1
-        }
-    }
-    LaunchedEffect(key1 = start[10], key2 = time[10]) {
-        if (start[10]) {
-            delay(1000L)
-            time[10] += 1
-        }
-    }
-    LaunchedEffect(key1 = start[11], key2 = time[11]) {
-        if (start[11]) {
-            delay(1000L)
-            time[11] += 1
-        }
-    }
-    LaunchedEffect(key1 = start[12], key2 = time[12]) {
-        if (start[12]) {
-            delay(1000L)
-            time[12] += 1
-        }
-    }
-    LaunchedEffect(key1 = start[13], key2 = time[13]) {
-        if (start[13]) {
-            delay(1000L)
-            time[13] += 1
-        }
-    }
-    LaunchedEffect(key1 = start[14], key2 = time[14]) {
-        if (start[14]) {
-            delay(1000L)
-            time[14] += 1
-        }
-    }
-    LaunchedEffect(key1 = start[15], key2 = time[15]) {
-        if (start[15]) {
-            delay(1000L)
-            time[15] += 1
-        }
-    }
-    LaunchedEffect(key1 = start[16], key2 = time[16]) {
-        if (start[16]) {
-            delay(1000L)
-            time[16] += 1
-        }
-    }
-    LaunchedEffect(key1 = start[17], key2 = time[17]) {
-        if (start[17]) {
-            delay(1000L)
-            time[17] += 1
-        }
-    }
-    LaunchedEffect(key1 = start[18], key2 = time[18]) {
-        if (start[18]) {
-            delay(1000L)
-            time[18] += 1
-        }
-    }
-    LaunchedEffect(key1 = start[19], key2 = time[19]) {
-        if (start[19]) {
-            delay(1000L)
-            time[19] += 1
-        }
-    }
-    LaunchedEffect(key1 = start[20], key2 = time[20]) {
-        if (start[20]) {
-            delay(1000L)
-            time[20] += 1
-        }
-    }
     */
 }
 
